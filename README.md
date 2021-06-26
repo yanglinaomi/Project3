@@ -44,7 +44,7 @@ Try ensemble models, such as random forest classifier
 May consider to model more than two topics to improve user's satisfaction.
 
 ## Reference
-[1] https://towardsdatascience.com/text-classification-applications-and-use-cases-beab4bfe2e62
-[2] https://towardsdatascience.com/generative-vs-2528de43a836
-[3] https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html
+[1] https://towardsdatascience.com/text-classification-applications-and-use-cases-beab4bfe2e62                                                                                 
+[2] https://towardsdatascience.com/generative-vs-2528de43a836                                                                                                                 
+[3] https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html                                                                                   
 [4] https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
