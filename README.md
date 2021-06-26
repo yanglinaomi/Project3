@@ -1,88 +1,50 @@
-# Project2 
-This contains all the stuff for Project2
+# Project3
+This contains all the stuff for Project3
 ## Problem Statement
-
-Ames is a town in Iowa with a population of 66,258 in 2019. Ames is in Story County and is one of the best places to live in Iowa. Living in Ames offers residents an urban suburban mix feel and most residents rent their homes. In Ames there are a lot of bars, coffee shops, and parks. Many young professionals live in Ames and residents tend to lean conservative. The public schools in Ames are highly rated. At Ace Real Estate, we are passionate about helping our clients to find a dream house with affordable price. 
-
-As the industry moves to automate the appraisal of house, Ace Real Estate decides to build up data science team to apply machine learning skill to estimate sale price of houses. As a member of the data science team, I will use Ames Housing data which collected from year 2006 to 2010 to build linear regression model to predict the sale price for houses in Ames and provide recommendation for homeowners to  increase their house value. 
+KiddyToy sells wonderful and liable children toys. From last year, KiddyToy made decision to move their business online and also provided online customer feedback service. Customer service team will categorize customer's feedback as "customer complain" or "customer support". This increases company's revenue significantly. However, KiddyToy faces the problem that receive drastic amount of customer feedback each day. The current system only allows employees to categorize customer feedback manually which is time-consuming. As the company's data science team member, we initialize a project to build up a text classifier to automate this process.
 
 ## Executive Summary
-The Ames housing dataset includes 80 features of nominal, discrete, ordinal and continuous variables for individual residential properties sold in Ames, IA from 2006 to 2010.
+It's estimated that around 80% of all information is unstructured, with text being one of the most common types of unstructured data. Because of the messy nature of text, analyzing, understanding, organizing, and sorting through text data is hard and time-consuming. KiddyAce's customer service team faces the same issue.
 
-During the first step workflow which is data cleaning, missing values were detected and fixed, outlier points are investigated and eliminitated from the dataset. Once data cleaning is done, Exploratory Data Analysis (EDA) is conducted for each feature. Ordinal features are converted to discrete values. For categorical data (nominal), bar plots were created to visualize the mean Sale Price across categories. During EDA for categorical features, special attention was paid to any patterns or clusters in Sale Prices that emerged. I also expore continuous/discrete features with similar groups, like sold/built year, bathroom No and floor SF to create more meaningful new features. 
+In this project, we develop a text classifier to help KiddyAce's customer service team. We select two subreddits, /r/Coffee and /r/Tea from reddit website. The choice of these two subreddits is motivated by their text-heavy posts. The goal of this project is to classify which subreddit a given post came from. We create and compare two models: logistic regression and naive Bayes classifier and choose the best model. Our best model can perform well with a test accuracy score of 92.05%.
 
-The linear relationship between Sale Price and all numeric features were examined using heatmap and correlation coefficients. Features with high correlation rate (>=0.4) were filtered out for visualization check. 
-Features with continous data were plotted with scatter plot while features with discrete data were plotted with boxplot. 
-Heatmap for all filtered-out features were also plotted to check colinear between features. If there was high colinearity between features, the feature with less correlation rate with Sale Price was removed from filtered features list. 
-
-After filtered features list were comfirmed, train dataset was divided into training set (70% of data) and holdout set (30% of data) to prepare for modeling. In this project, 4 models (linear regression/ridge regression/lasso regression/elsticNET regression) were used. 
-
-In the first verification, filtered features list with 27 features from EDA were used for these 4 models. Among these models, elasticNET had best MSE score. However, I observed that with higher Sale Price, the best fit of line did not fit well. In the high sale price side, the line tended to be curly. We decided to add square value (power 2) for some features which had high correction with saleprice to observe whether could improve MSE score and best fit of line in second verification. 
-
-In the second verification, 6 square values (power 2) were added. The result showed much better MSE and slight improvement of best fit line for higher Sale Price. So I decided to try higher power into the features, i.e. add power 3 to verify whether higher power value could further improve the models in the third verification. 
-
-In the third verification, 6 power 3 values were added. MSE scores were improved slightly. By checking lasso regression coeffient, some features' coeffients were zero. This may be due to high colinearity among the feature and its power 2 / power 3. In the fourth verification, features with zero coeffient were dropped. 
-
-
-In the fourth verification, the MSE score almost had no improvement. However, we can observe the samll gap between train data MSE score and holdout data MSE score. R2 score for train dataset and holdout data set were 91% and 90% respectively. We can say that this model could fit train and holdout data well. 
-
-After we identify our best model, residuals plot was evaluated and Sale Prices in test dataset were predicted. Interpretations and recommendations were made based off of the best-performing model.
+By using this text classifiers, customer service team can automatically structure texts from customer feedback in a fast and cost-effective way. This allows companies to save time analyzing text data, automate business processes, and improve customer satisfaction.
 
 ## Table of Contents
-1. [Project Files](#../datasets)
-2. [Data Dictionary](#Data-Dictionary)
+1. [Project Files](#../data)
+2. [Data Dictionary](#../data)
 3. [Model Selection](#Model-Selection)
 4. [Conclusion and Recommendations](#Conclusion-and-Recommendations)
 
-## Data Dictionary
-A link to the data dictionary can be found [here](http://jse.amstat.org/v19n3/decock/DataDocumentation.txt).
-
 ## Model Selection
-### 1st round Model Verification - Apply selected features
-Model Name | X_train RMSE | X_hold RMSE|X_train R2|X_hold R2
+### 1st round Model Verification - with default hyperparamers
+Model Name | Vectorizer |Train Score|Test Score|Train/Test Score gap
 -|-|-|-|-
-Linear Regression |27255.4138|28050.6253|88.90%|87.52%
-Ridge Regression|27221.1833|27992.7968|88.89%|87.53%
-LASSO Regression|27207.6141|27975.5524|88.89%|87.49%
-ElasticNET Regression|27207.6141|27975.5524|87.5%|87.8%
+Logistic Regression|CountVectorizer|99.5%|91.8%|7.7%
+Logistic Regression|TfidfVectorizer|97.1%|91.6%|5.5%
+Naive Bayes|CountVectorizer|96.2%|90.8%|5.4%
+Naive Bayes|TfidfVectorizer|96.7%|90.6%|6.1%
 
-### 2nd round Model Verification - Add power 2 features
-Model Name | X_train RMSE | X_hold RMSE|X_train R2|X_hold R2
+### 2nd round Model Verification - use GridSearch to tune hyperparamters
+Model Name | Vectorizer |Train Score|Test Score|Train/Test Score gap
 -|-|-|-|-
-Linear Regression |24795.9652|25637.2296|91.03%%|89.90%
-Ridge Regression|24761.1563|25348.8987|91.01%|89.9%
-LASSO Regression|24809.6161|25616.3006|90.97%|89.9%
-ElasticNET Regression|24809.6161|25616.3006|90.97%|89.9%
-
-### 3rd round Model Verification - Add power 3 features
-Model Name | X_train RMSE | X_hold RMSE|X_train R2|X_hold R2
--|-|-|-|-
-Linear Regression|24687.4268|26424.0999|91.35%%|90.28%
-Ridge Regression|24693.2033|24693.2033|91.11%|90.10%
-LASSO Regression|24651.7675|25326.342|91.11%|90.06%
-ElasticNET Regression|24651.7675|25326.342|91.11%|90.06%
-
-### 4th round Model Verification - Drop zero coefficient features from 3rd round
-Model Name | X_train RMSE | X_hold RMSE|X_train R2|X_hold R2
--|-|-|-|-
-Linear Regression|24593.4239|25173.9070|91.15%%|90.10%
-Ridge Regression|24546.7903|24833.6543|91.12%|90.11%
-LASSO Regression|24600.6990|25063.6965|91.14%|90.09%
-ElasticNET Regression|24600.6990|25063.6965|91.14%|90.09%
-
+Logistic Regression|CountVectorizer|99.1%|91.2%|7.9%
+Logistic Regression|TfidfVectorizer|97.2%|91.4%|5.8%
+Naive Bayes|CountVectorizer|94.2%|90.4%|3.8%
+Naive Bayes|TfidfVectorizer|96.6%|92.1%|4.5%
 
 ## Conclusion and Recommendations
-The model created in project performances well for 90.57% of the variation in Sale Price of a property although it does not fit well for extreme high SalePrice. Power 2 features are added and this improves the prediction. However, higher power features (i.e. 3) does not help a lot to improve predictions but raises high vairance in linear regression and causes colinearity between features. After remove features with zero coeffients in lasso regression can make the model fit train dataset and holdout dataset better. Observed from histogram plots for SalePrice and some continous data features, they are not normally distributed and skew to one side. We may consider log-transfomration for further improvement of this model. 
+Our naive Bayes classifier performed well with a test accuracy score of 92.05%. This is expected due to two similar subreddit topics we chose. There are many common words in their top20 words list, like 'cup', 'brew','taste', 'water' etc.
+However, it still can be a good classifier for customer service team to categorize customer feedback with high accuracy.
 
-From this model, we can make some recommendations for homeowners to increase their property value. 
-  1. Maintain overall house quality including kitchen, internal and external of house etc.
-  2. Increase floor area if possible 
-  3. Make house well-renovated as good living quarters including basement area
-  4. With builtIn or attached garage
-  5. New houses and newly-renovated houses are more valuable. 
-  6. The houses in neighborhoods, such as neighborhoods Stone Brook, Northridge Heights, Veenker, Northridge, Green Hills are more valuable. 
+There are still space for improvement for this classifier:
+
+ - Optimize stop words, for example to identify the common words for these two topics and add into stopwords.                                                                 
+ - Try ensemble models, such as random forest classifier                                                                                                                       
+ - May consider to model more than two topics to improve user's satisfaction.
 
 ## Reference
-[1] https://www.niche.com/places-to-live/ames-story-ia/                                                                                                                       
-[2] https://en.wikipedia.org/wiki/Ames,_Iowa                                                                                                                                   
-[3] https://www.mortgageloan.com/are-automated-appraisals-the-wave-of-the-future#When-automated-makes-sense
+[1] https://towardsdatascience.com/text-classification-applications-and-use-cases-beab4bfe2e62                                                                                 
+[2] https://towardsdatascience.com/generative-vs-2528de43a836                                                                                                                 
+[3] https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html                                                                                   
+[4] https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
