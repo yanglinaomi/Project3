@@ -17,7 +17,7 @@ By using this text classifiers, customer service team can automatically structur
 4. [Conclusion and Recommendations](#Conclusion-and-Recommendations)
 
 ## Model Selection
-### 1st round Model Verification - Apply selected features
+### 1st round Model Verification - with default hyperparamers
 Model Name | Vectorizer |Train Score|Test Score|Train/Test Score gap
 -|-|-|-|-
 Logistic Regression|CountVectorizer|99.5%|91.8%|7.7%
@@ -25,7 +25,7 @@ Logistic Regression|TfidfVectorizer|97.1%|91.6%|5.5%
 Naive Bayes|CountVectorizer|96.2%|90.8%|5.4%
 Naive Bayes|TfidfVectorizer|96.7%|90.6%|6.1%
 
-### 2nd round Model Verification - Add power 2 features
+### 2nd round Model Verification - use GridSearch to tune hyperparamters
 Model Name | Vectorizer |Train Score|Test Score|Train/Test Score gap
 -|-|-|-|-
 Logistic Regression|CountVectorizer|99.1%|91.2%|7.9%
@@ -39,9 +39,9 @@ However, it still can be a good classifier for customer service team to categori
 
 There are still space for improvement for this classifier:
 
-Optimize stop words, for example to identify the common words for these two topics and add into stopwords.
-Try ensemble models, such as random forest classifier
-May consider to model more than two topics to improve user's satisfaction.
+ - Optimize stop words, for example to identify the common words for these two topics and add into stopwords.                                                                 
+ - Try ensemble models, such as random forest classifier                                                                                                                       
+ - May consider to model more than two topics to improve user's satisfaction.
 
 ## Reference
 [1] https://towardsdatascience.com/text-classification-applications-and-use-cases-beab4bfe2e62                                                                                 
